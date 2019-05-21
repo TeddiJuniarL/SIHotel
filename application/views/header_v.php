@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hotel</title>
+    <title>Tampilan Awal</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?PHP echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">

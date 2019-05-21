@@ -15,24 +15,24 @@
             <div class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img src="<?PHP echo base_url(); ?>assets/img/slider/banner1.jpg">
+                        <img src="<?PHP echo base_url(); ?>assets/img/slider/">
                         <div class="carousel-caption">
                             <h3>Tipe Kamar Deluxe</h3>
-                            <h5>Ulin Bekasi</h5>
+                            <h5></h5>
                         </div>
                     </div>
                     <div class="item">
-                        <img src="<?PHP echo base_url(); ?>assets/img/slider/banner2.jpg">
+                        <img src="<?PHP echo base_url(); ?>assets/img/slider/">
                         <div class="carousel-caption">
                             <h3>Pemandangan dari Kolam Renang</h3>
-                            <h5>Ulin Ciloto</h5>
+                            <h5></h5>
                         </div>
                     </div>
                     <div class="item">
-                        <img src="<?PHP echo base_url(); ?>assets/img/slider/banner3.jpg">
+                        <img src="<?PHP echo base_url(); ?>assets/img/slider/">
                         <div class="carousel-caption">
                             <h3>Ruang Tunggu Tamu</h3>
-                            <h5>Ulin Depok</h5>
+                            <h5></h5>
                         </div>
                     </div>
                 </div>
