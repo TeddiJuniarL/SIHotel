@@ -112,9 +112,6 @@
                                 <li>
                                     <a href="<?PHP echo site_url(); ?>kamar/type_kamar">Tipe Kamar</a>
                                 </li>
-                                <li>
-                                    <a href="<?PHP echo site_url(); ?>kamar/lokasi">Lokasi</a>
-                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

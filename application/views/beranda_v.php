@@ -15,21 +15,21 @@
             <div class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img src="<?PHP echo base_url(); ?>assets/img/slider/">
+                        <img src="<?PHP echo base_url(); ?>assets/img/slider/dafam1.jpg">
                         <div class="carousel-caption">
                             <h3>Tipe Kamar Deluxe</h3>
                             <h5></h5>
                         </div>
                     </div>
                     <div class="item">
-                        <img src="<?PHP echo base_url(); ?>assets/img/slider/">
+                        <img src="<?PHP echo base_url(); ?>assets/img/slider/dafam2.jpg">
                         <div class="carousel-caption">
                             <h3>Pemandangan dari Kolam Renang</h3>
                             <h5></h5>
                         </div>
                     </div>
                     <div class="item">
-                        <img src="<?PHP echo base_url(); ?>assets/img/slider/">
+                        <img src="<?PHP echo base_url(); ?>assets/img/slider/dafam3.jpg">
                         <div class="carousel-caption">
                             <h3>Ruang Tunggu Tamu</h3>
                             <h5></h5>

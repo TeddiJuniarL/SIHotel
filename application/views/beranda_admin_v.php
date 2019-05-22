@@ -61,9 +61,9 @@
 				},
 				'data':[
 					
-					{ 'label':'Deluxe', 'value':'1' },
+					{ 'label':'Deluxe', 'value':'0' },
 					{ 'label':'Suite', 'value':'1' },
-					{ 'label':'Superior', 'value':'0' },
+					{ 'label':'Superior', 'value':'1' },
 					{ 'label':'Super Deluxe', 'value':'0' }
 					
 				]
