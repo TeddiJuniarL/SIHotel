@@ -61,10 +61,10 @@
 				},
 				'data':[
 					
-					{ 'label':'Deluxe', 'value':'0' },
+					{ 'label':'Deluxe', 'value':'1' },
 					{ 'label':'Suite', 'value':'1' },
 					{ 'label':'Superior', 'value':'1' },
-					{ 'label':'Super Deluxe', 'value':'0' }
+					{ 'label':'Super Deluxe', 'value':'1' }
 					
 				]
 			}
