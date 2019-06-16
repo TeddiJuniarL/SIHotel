@@ -41,6 +41,22 @@ class sistem_model extends CI_Model {
 	 function TentangKami() {
 	 	return $this->db->query("select * from tbl_tentang_hotel");
 	 }
+
+	  function NewReservasiBaru() {
+
+	 	return $this->db->query("select a.*,b.* from tbl_reservasi a 
+	 	join tbl_kamar b on a.kamar_id=b.id_kamar 
+	 	where a.status_reservasi='0' 
+	 	order by a.id_reservasi desc");
+
+	 }
+
+	 function KamarKosong () {
+	 	return $this->db->query("select a.*,b.* from tbl_kamar a 
+	 		join tbl_kelas_kamar b on a.kelas_kamar_id=b.id_kelas_kamar 
+	 		where status_kamar='0' 
+	 		order by a.id_kamar,a.kelas_kamar_id desc");
+	 }
 }
 
  ?>

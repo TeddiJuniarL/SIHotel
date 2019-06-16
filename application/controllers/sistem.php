@@ -34,6 +34,26 @@ class sistem extends CI_Controller {
 
 			}
 		}
+
+	public function logout() {
+		$this->session->sess_destroy();
+		redirect("sistem");
+	} 
+	
+	public function home() {
+
+		if($this->session->userdata("id_user")!=="") {
+
+			$data['new_reservasi'] 	= $this->sistem_model->NewReservasiBaru();
+			$data['kamar']			= $this->sistem_model->KamarKosong();
+			$this->template_system->load('template_system','sistem/data/index',$data);
+		}
+		else{
+			redirect('sistem');
+
+		}
+	}
+	
 	}
 
  ?>
