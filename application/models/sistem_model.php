@@ -157,6 +157,20 @@ class sistem_model extends CI_Model {
 	 	join tbl_kamar b on a.kamar_id=b.id_kamar where id_reservasi='$id' ");
 
 	 }
+
+	  function Saran() {
+	 	return $this->db->query("select * from tbl_saran order by id_saran desc");
+	 }
+
+	 	 //Awal Ganti Password
+	 function GetUserId($id_user) {
+	 	return $this->db->query("select * from tbl_user where id_user='$id_user'");
+	 }
+
+	 function UpdateUser($id_user,$password) {
+	 	return $this->db->query("update tbl_user set password_user='$password' where id_user='$id_user' ");
+	 }
+	 //Akhir Ganti Password
 }
 
  ?>

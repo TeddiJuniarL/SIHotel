@@ -1026,6 +1026,116 @@ class sistem extends CI_Controller {
 	}
 	//Akhir Reservasi
 
+	public function saran() {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$data['saran'] = $this->sistem_model->Saran();
+
+			$this->template_system->load('template_system','sistem/data/saran/index',$data);
+
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+	//Akhir Saran
+	//Awal Ganti Password
+
+	public function ganti_password() {
+		if($this->session->userdata("logged_in")!=="" ) {
+
+
+			$this->template_system->load('template_system','sistem/data/ganti_password/index');
+
+
+		}
+		else{
+			redirect('sistem/logout');
+
+		}
+	}
+
+	public function ganti_password_update () {
+
+		if($this->session->userdata("logged_in")!=="" ) {
+
+			$this->form_validation->set_rules('password_lama','Password Lama','required');
+			$this->form_validation->set_rules('password_baru','Password Baru','required');
+			$this->form_validation->set_rules('password_konfirmasi','Confirmasi Password','required');
+			
+		
+
+			if ($this->form_validation->run()==FALSE) {
+
+
+				$this->template_system->load('template_system','sistem/data/ganti_password/index');
+
+			}
+			else {
+
+				$id_user = $this->session->userdata("id_user");
+				$password_lama =  md5($this->input->post('password_lama'));
+
+				$query = $this->sistem_model->GetUserId($id_user);
+
+				// echo $this->db->last_query();
+				// die();
+
+				foreach ($query->result_array() as $value) {
+					$password = $value['password_user'];
+				}
+
+				if ($password_lama!=$password) {
+
+					$this->session->set_flashdata('salah','ok');
+					redirect('sistem/ganti_password');
+
+				}
+				else {
+
+					$password_baru 			= $this->input->post('password_baru');
+					$password_konfirmasi 	= $this->input->post('password_konfirmasi');
+
+					if ($password_baru!=$password_konfirmasi) {
+
+						$this->session->set_flashdata('tidaksama','ok');
+						redirect('sistem/ganti_password');
+
+					}
+					else {
+
+						$id_user 		= $this->session->userdata("id_user");
+						$password 		= md5($this->input->post('password_baru'));
+
+						$this->sistem_model->UpdateUser($id_user,$password);
+
+						$this->session->set_flashdata('sukses','ok');
+						redirect('sistem/ganti_password');
+
+
+					}
+
+				}
+
+			}
+
+
+
+		}
+		else{
+			redirect('sistem/logout');
+
+		}
+
+	}
+
+
+	//Akhir Ganti Password
+	
 	}
 
  ?>
