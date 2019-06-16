@@ -37,6 +37,55 @@ class sistem_model extends CI_Model {
 		}
 
 	}
+	//Awal Kelas Kamar
+	 function KelasKamar(){
+	 	return $this->db->query("select * from tbl_kelas_kamar order by id_kelas_kamar desc");
+	 }
+
+
+	 function DeleteKelasKamar($id) {
+	 	return $this->db->query("delete from tbl_kelas_kamar where id_kelas_kamar='$id' ");
+	 }
+
+	 function EditKelasKamar($id) {
+	 	return $this->db->query("select * from tbl_kelas_kamar where id_kelas_kamar='$id' ");
+	 }
+
+	 //Akhir Kelas Kamar
+
+	  //Awal Kelas Kamar
+	 function Kamar(){
+	 	return $this->db->query("select a.*,b.* from tbl_kamar a join tbl_kelas_kamar b on a.kelas_kamar_id=b.id_kelas_kamar order by a.id_kamar desc");
+	 }
+
+
+	 function DeleteKamar($id) {
+	 	return $this->db->query("delete from tbl_kamar where id_kamar='$id' ");
+	 }
+
+	 function EditKamar($id) {
+	 	return $this->db->query("select * from tbl_kamar where id_kamar='$id' ");
+	 }
+
+	 function KamarId($id) {
+	 	return $this->db->query("select a.*,b.* from tbl_kamar a join tbl_kelas_kamar b on a.kelas_kamar_id=b.id_kelas_kamar where a.id_kamar='$id'");
+	 }
+
+	 function KamarGambar ($id) {
+
+	 	return $this->db->query("select * from tbl_kamar_gambar where kamar_id='$id' ");
+
+	 }
+
+	 function DeleteKamarGambar($id) {
+	 	return $this->db->query("delete from tbl_kamar_gambar where id_kamar_gambar='$id' ");
+
+	 }
+
+	 
+
+	 //Akhir Kelas Kamar
+
 
 	 function TentangKami() {
 	 	return $this->db->query("select * from tbl_tentang_hotel");

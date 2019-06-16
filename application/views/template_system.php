@@ -77,24 +77,6 @@
 
 				<li class="classic-menu-dropdown">
 					<a data-toggle="dropdown" href="javascript:;">
-					GALERI <i class="fa fa-angle-down"></i>
-					</a>
-					<ul class="dropdown-menu pull-left">
-						<li>
-							<a href="<?php echo base_url();?>sistem/kategori_galeri">
-							<i class="fa fa-table"></i> KATEGORI </a>
-						</li>
-						<li>
-							<a href="<?php echo base_url();?>sistem/galeri">
-							<i class="fa fa-table"></i> UPLOAD </a>
-						</li>
-						
-
-						
-					</ul>
-				</li>
-				<li class="classic-menu-dropdown">
-					<a data-toggle="dropdown" href="javascript:;">
 					KAMAR <i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu pull-left">
