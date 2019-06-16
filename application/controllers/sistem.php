@@ -742,6 +742,290 @@ class sistem extends CI_Controller {
 
 	}
 	//Akhir User
+
+	public function reservasi() {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$data['reservasi'] = $this->sistem_model->Reservasi();
+
+			$this->template_system->load('template_system','sistem/data/reservasi/index',$data);
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+	}
+
+	public function new_reservasi () {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$data['new_reservasi'] = $this->sistem_model->NewReservasi();
+
+			$this->template_system->load('template_system','sistem/data/new_reservasi/index',$data);
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function new_reservasi_in () {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$id['id_reservasi'] 		= $this->uri->segment(3);
+			$up['status_reservasi'] 	= $this->uri->segment(4);
+
+
+			$this->db->update("tbl_reservasi",$up,$id);
+
+			$id = $this->uri->segment(3);
+
+			$query = $this->sistem_model->ReservasiId($id);
+
+			foreach ($query->result_array() as $value) {
+				$id_kamar['id_kamar'] = $value['kamar_id'];
+			}
+
+			$up2['status_kamar'] 	= $this->uri->segment(4);
+
+
+			$this->db->update("tbl_kamar",$up2,$id_kamar);
+
+
+				
+						
+			$this->session->set_flashdata('in','OK');
+			redirect("sistem/new_reservasi");
+
+
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function new_reservasi_out () {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			// $id['id_reservasi'] 		= $this->uri->segment(3);
+			// $up['status_reservasi'] 	= $this->uri->segment(4);
+
+
+			// $this->db->update("tbl_reservasi",$up,$id);
+
+			// $id = $this->uri->segment(3);
+
+			// $query = $this->sistem_model->ReservasiId($id);
+
+			// foreach ($query->result_array() as $value) {
+			// 	$id_kamar['id_kamar'] = $value['kamar_id'];
+			// }
+
+			// $up2['status_kamar'] 	= 0;
+
+
+			// $this->db->update("tbl_kamar",$up2,$id_kamar);
+				
+						
+			// $this->session->set_flashdata('out','OK');
+			// redirect("sistem/new_reservasi");
+
+			$id		= $this->uri->segment(3);
+
+			$query						=  $this->sistem_model->ReservasiId($id);
+
+			foreach ($query->result_array() as $value) {
+				$data['id_reservasi'] 			= $value['id_reservasi'];
+				$data['nama_reservasi']	 		= $value['nama_reservasi'];
+				$data['telp_reservasi'] 		= $value['telp_reservasi'];
+				$data['alamat_reservasi'] 		= $value['alamat_reservasi'];
+				$data['tgl_reservasi_masuk']	= $value['tgl_reservasi_masuk'];
+				$data['tgl_reservasi_keluar'] 	= $value['tgl_reservasi_keluar'];
+				$data['id_kamar'] 				= $value['id_kamar'];
+				$data['nomer_kamar'] 			= $value['nomer_kamar'];
+				$data['harga_kamar'] 			= $value['harga_kamar'];
+				$data['status_kamar'] 			= $value['status_kamar'];
+				$data['waktu'] 					= $value['waktu'];
+			}
+			$data['status_reservasi']	= $this->uri->segment(4);
+
+			$this->template_system->load('template_system','sistem/data/new_reservasi/out',$data);
+
+
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function new_reservasi_out_simpan () {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			//Update Status reservasi
+			$id['id_reservasi'] 		= $this->input->post("id_reservasi");
+			$up['status_reservasi'] 	= $this->input->post("status_reservasi");
+			$this->db->update("tbl_reservasi",$up,$id);
+
+
+			//Update Status Kamar
+			$id_kamar['id_kamar'] 	= $this->input->post("id_kamar");
+			$up2['status_kamar'] 	= 0;
+			$this->db->update("tbl_kamar",$up2,$id_kamar);
+
+
+			//Insert into reservasi pembayaran
+			$in['tgl_pembayaran'] 		= date('Y-m-d');
+			$in['nominal_pembayaran'] 	= $this->input->post("total_bayar");
+			$in['uang_bayar'] 			= $this->input->post("uang_bayar");
+			$in['kembalian'] 			= $this->input->post("kembalian");
+			$in['reservasi_id'] 		= $this->input->post("id_reservasi");
+			$this->db->insert("tbl_reservasi_pembayaran",$in);
+				
+						
+			$this->session->set_flashdata('out','OK');
+			redirect("sistem/new_reservasi");
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function new_reservasi_perpanjang () {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$id		= $this->uri->segment(3);
+
+			$query						=  $this->sistem_model->ReservasiId($id);
+
+			foreach ($query->result_array() as $value) {
+				$data['id_reservasi'] 			= $value['id_reservasi'];
+				$data['nama_reservasi']	 		= $value['nama_reservasi'];
+				$data['telp_reservasi'] 		= $value['telp_reservasi'];
+				$data['alamat_reservasi'] 		= $value['alamat_reservasi'];
+				$data['tgl_reservasi_masuk']	= tgl_balik($value['tgl_reservasi_masuk']);
+				$data['tgl_reservasi_keluar'] 	= tgl_balik($value['tgl_reservasi_keluar']);
+				$data['id_kamar'] 				= $value['id_kamar'];
+				$data['nomer_kamar'] 			= $value['nomer_kamar'];
+				$data['harga_kamar'] 			= $value['harga_kamar'];
+				$data['status_kamar'] 			= $value['status_kamar'];
+				$data['waktu'] 					= $value['waktu'];
+			}
+
+			
+
+			$this->template_system->load('template_system','sistem/data/new_reservasi/edit',$data);
+
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function new_reservasi_perpanjang_simpan () {
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$id['id_reservasi'] 		= $this->input->post("id_reservasi");
+			$up['tgl_reservasi_masuk'] 	= tgl_luar($this->input->post("tgl_reservasi_masuk"));
+			$up['tgl_reservasi_keluar'] = tgl_luar($this->input->post("tgl_reservasi_keluar"));
+			$this->db->update("tbl_reservasi",$up,$id);
+
+			$this->session->set_flashdata('perpanjang','OK');
+			redirect("sistem/new_reservasi");
+
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function new_reservasi_tambah() {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$data['kamar']	= $this->sistem_model->KamarKosong();
+
+			$this->template_system->load('template_system','sistem/data/new_reservasi/add',$data);
+
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function new_reservasi_simpan () {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$this->form_validation->set_rules('tgl_reservasi_masuk','Tanggal Masuk','required');
+			$this->form_validation->set_rules('tgl_reservasi_keluar','Tanggal Keluar','required');
+			$this->form_validation->set_rules('kamar_id','Kamar','required');
+			$this->form_validation->set_rules('nama_reservasi','Nama','required');
+			$this->form_validation->set_rules('telp_reservasi','Telprequired');
+			$this->form_validation->set_rules('alamat_reservasi','Alamat','required');
+			
+		
+
+			if ($this->form_validation->run()==FALSE) {
+
+				$data['kamar']	= $this->sistem_model->KamarKosong();
+
+				$this->template_system->load('template_system','sistem/data/new_reservasi/add',$data);
+
+			}
+			else {
+
+		
+					$in['tgl_reservasi_masuk'] 		= tgl_luar($this->input->post('tgl_reservasi_masuk'));
+					$in['tgl_reservasi_keluar'] 	= tgl_luar($this->input->post('tgl_reservasi_keluar'));
+					$in['kamar_id'] 				= $this->input->post('kamar_id');
+					$in['nama_reservasi'] 			= $this->input->post('nama_reservasi');
+					$in['telp_reservasi'] 			= $this->input->post('telp_reservasi');
+					$in['alamat_reservasi'] 		= $this->input->post('alamat_reservasi');
+					
+							
+					$this->db->insert("tbl_reservasi",$in);
+							
+					$this->session->set_flashdata('berhasil','OK');
+					redirect("sistem/new_reservasi");
+			}
+
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+	//Akhir Reservasi
+
 	}
 
  ?>

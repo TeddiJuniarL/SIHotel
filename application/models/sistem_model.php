@@ -135,6 +135,28 @@ class sistem_model extends CI_Model {
 	 		where status_kamar='0' 
 	 		order by a.id_kamar,a.kelas_kamar_id desc");
 	 }
+
+	 function Reservasi() {
+
+	 	return $this->db->query("select a.*,b.* from tbl_reservasi a 
+	 	join tbl_kamar b on a.kamar_id=b.id_kamar order by a.id_reservasi desc");
+
+	 }
+
+	  function NewReservasi() {
+
+	 	return $this->db->query("select a.*,b.* from tbl_reservasi a 
+	 	join tbl_kamar b on a.kamar_id=b.id_kamar 
+	 	where a.status_reservasi='0' or a.status_reservasi='1' or a.status_reservasi='2'
+	 	order by a.id_reservasi desc");
+
+	 }
+
+	  function ReservasiId($id) {
+	 	return $this->db->query("select a.*,b.*,TIMESTAMPDIFF(DAY, a.tgl_reservasi_masuk, a.tgl_reservasi_keluar) as waktu from tbl_reservasi a 
+	 	join tbl_kamar b on a.kamar_id=b.id_kamar where id_reservasi='$id' ");
+
+	 }
 }
 
  ?>
