@@ -419,7 +419,7 @@
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
 	<div class="page-footer-inner">
-		 2015 &copy; SISTEM HOTEL.
+		 2019 &copy; SISTEM HOTEL.
 	</div>
 	<div class="page-footer-tools">
 		<span class="go-top">
