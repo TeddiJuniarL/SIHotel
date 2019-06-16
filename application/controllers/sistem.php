@@ -435,6 +435,313 @@ class sistem extends CI_Controller {
 
 	}
 	//Akhir Kamar
+	//Awal User Group	
+
+	public function user_group() {
+
+		if($this->session->userdata("id_user")!=="" ) {
+			$data['user_group']	= $this->sistem_model->UserGroup();
+			$this->template_system->load('template_system','sistem/data/user_group/index',$data);
+		}
+		else{
+			redirect('sistem');
+
+		}
+	} 
+
+	public function user_group_tambah () {
+
+		if($this->session->userdata("id_user")!=="" ) {
+			
+			$this->template_system->load('template_system','sistem/data/user_group/add');
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function user_group_simpan () {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$this->form_validation->set_rules('nama_user_group', 'Category Gallery', 'required');
+
+			if ($this->form_validation->run() == FALSE)
+			{
+				$this->template_system->load('template_system','sistem/data/user_group/add');
+
+			}
+			else {
+
+				$in['nama_user_group'] = $this->input->post('nama_user_group');
+								
+				$this->db->insert("tbl_user_group",$in);
+
+				$this->session->set_flashdata('berhasil','ok');
+				redirect("sistem/user_group");	
+			}
+			
+			
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function user_group_delete() {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$id = $this->uri->segment(3);
+			$this->sistem_model->DeleteUserGroup($id);
+
+			$this->session->set_flashdata('hapus','ok');
+			redirect("sistem/user_group");
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function user_group_edit() {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$id = $this->uri->segment(3);
+
+			$query = $this->sistem_model->EditUserGroup($id);
+
+			foreach ($query->result_array() as $value) {
+				$data['id_user_group'] 	=  $value['id_user_group'];
+				$data['nama_user_group'] =  $value['nama_user_group'];
+				
+			}
+
+			$this->template_system->load('template_system','sistem/data/user_group/edit',$data);
+		
+
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+
+	public function user_group_update() {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$id['id_user_group'] 	=  $this->input->post("id_user_group");
+			$up['nama_user_group'] 	=  $this->input->post("nama_user_group");
+
+			$this->db->update("tbl_user_group",$up,$id);
+
+			$this->session->set_flashdata('update','ok');
+			redirect("sistem/user_group");
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+
+	//Akhir User Group
+
+	//Awal User 
+	public function user () {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$data['user']	= $this->sistem_model->User();
+
+			$this->template_system->load('template_system','sistem/data/user/index',$data);
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function user_tambah() {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$data['user_group']	= $this->sistem_model->UserGroup();
+
+			$this->template_system->load('template_system','sistem/data/user/add',$data);
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function user_simpan() {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$this->form_validation->set_rules('nama_user','Nama User','required');
+			$this->form_validation->set_rules('email_user','Email','required');
+			$this->form_validation->set_rules('telp_user','Telp','required');
+			$this->form_validation->set_rules('username_user','Username','required');
+			$this->form_validation->set_rules('password_user','Password','required');
+			$this->form_validation->set_rules('user_group_id','User Group','required');
+			
+		
+
+			if ($this->form_validation->run()==FALSE) {
+
+				$data['user_group']	= $this->sistem_model->UserGroup();
+
+				$this->template_system->load('template_system','sistem/data/user/add',$data);
+
+			}
+			else {
+
+		
+					$in['nama_user'] 		= $this->input->post('nama_user');
+					$in['email_user'] 		= $this->input->post('email_user');
+					$in['telp_user'] 		= $this->input->post('telp_user');
+					$in['username_user'] 	= $this->input->post('username_user');
+					$in['password_user'] 	= md5($this->input->post('password_user'));
+					$in['user_group_id'] 	= $this->input->post('user_group_id');	
+							
+					$this->db->insert("tbl_user",$in);
+							
+					$this->session->set_flashdata('berhasil','OK');
+					redirect("sistem/user");
+			}
+		
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function user_edit() {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$id = $this->uri->segment(3);
+
+			$query =  $this->sistem_model->EditUser($id);
+
+			foreach ($query->result_array() as $value) {
+				$data['id_user'] 		=  $value['id_user'];
+				$data['nama_user'] 		=  $value['nama_user'];
+				$data['email_user'] 	=  $value['email_user'];
+				$data['telp_user'] 		=  $value['telp_user'];
+				$data['username_user'] 	=  $value['username_user'];
+				$data['password_user'] 	=  $value['password_user'];
+				$data['user_group_id'] 	=  $value['user_group_id'];
+			}
+
+			$data['user_group']	= $this->sistem_model->UserGroup();
+
+			$this->template_system->load('template_system','sistem/data/user/edit',$data);
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function user_update() {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$password = $this->input->post('password_user');
+
+			if ($password=="") {
+
+				$id['id_user'] = $this->input->post("id_user");
+								
+				$in_data['nama_user'] 		= $this->input->post('nama_user');
+				$in_data['email_user'] 		= $this->input->post('email_user');
+				$in_data['telp_user'] 		= $this->input->post('telp_user');
+				$in_data['username_user'] 	= $this->input->post('username_user');
+				$in_data['user_group_id'] 	= $this->input->post('user_group_id');
+				
+							
+				$this->db->update("tbl_user",$in_data,$id);
+					
+							
+				$this->session->set_flashdata('update','OK');
+				redirect("sistem/user");
+			}
+			else {
+
+
+				$id['id_user'] = $this->input->post("id_user");
+								
+				$in_data['nama_user'] 		= $this->input->post('nama_user');
+				$in_data['email_user'] 		= $this->input->post('email_user');
+				$in_data['telp_user'] 		= $this->input->post('telp_user');
+				$in_data['username_user'] 	= $this->input->post('username_user');
+				$in_data['password_user'] 	= md5($this->input->post('password_user'));
+				$in_data['user_group_id'] 	= $this->input->post('user_group_id');
+				
+							
+				$this->db->update("tbl_user",$in_data,$id);
+					
+							
+				$this->session->set_flashdata('update','OK');
+				redirect("sistem/user");
+			}
+
+						
+					
+
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+
+	public function user_delete() {
+
+		if($this->session->userdata("id_user")!=="" ) {
+
+			$id = $this->uri->segment(3);
+			$this->sistem_model->DeleteUser($id);
+
+			$this->session->set_flashdata('hapus','ok');
+			redirect("sistem/user");
+
+
+		}
+		else{
+			redirect('sistem');
+
+		}
+
+	}
+	//Akhir User
 	}
 
  ?>

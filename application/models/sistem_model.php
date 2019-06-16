@@ -82,11 +82,40 @@ class sistem_model extends CI_Model {
 
 	 }
 
-	 
+	//Akhir Kelas Kamar
 
-	 //Akhir Kelas Kamar
+	 //Awal User Group
+	 function UserGroup(){
+	 	return $this->db->query("select * from tbl_user_group order by id_user_group desc");
+	 }
 
 
+	 function DeleteUserGroup($id) {
+	 	return $this->db->query("delete from tbl_user_group where id_user_group='$id' ");
+	 }
+
+	 function EditUserGroup($id) {
+	 	return $this->db->query("select * from tbl_user_group where id_user_group='$id' ");
+	 }
+
+	//Akhir User Group
+
+	//Awal User
+	 function User() {
+	 	return $this->db->query("select a.*,b.* from tbl_user a
+	 		join tbl_user_group b on a.user_group_id=b.id_user_group
+	 		order by a.id_user desc");
+	 }
+
+	 function EditUser($id) {
+	 	return $this->db->query("select * from tbl_user where id_user='$id' ");
+	 }
+
+	  function DeleteUser($id) {
+	 	return $this->db->query("delete from tbl_user where id_user='$id' ");
+	 }
+
+	//Akhir User
 	 function TentangKami() {
 	 	return $this->db->query("select * from tbl_tentang_hotel");
 	 }

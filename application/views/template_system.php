@@ -129,14 +129,7 @@
 						<li>
 							<a href="<?php echo base_url();?>sistem/user">
 							<i class="fa fa-table"></i> USER </a>
-						</li>
-						<li>
-							<a href="<?php echo base_url();?>sistem/tentang_kami">
-							<i class="fa fa-table"></i> TENTANG KAMI </a>
-						</li>
-						
-
-						
+						</li>								
 					</ul>
 				</li>
 
