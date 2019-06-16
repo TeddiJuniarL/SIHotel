@@ -99,7 +99,7 @@
 </div>
 
 <div class="copyright">
-	 2015 &copy; Hotel System.
+	  &copy; Hotel System.
 </div>
 
 <script src="<?php echo base_url();?>asset/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
